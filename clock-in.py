@@ -161,7 +161,7 @@ def main(username, password):
         print('获取信息失败，请手动打卡，更多信息: ' + str(err))
         raise Exception
 
-    print(text='正在为您打卡打卡打卡')
+    print('正在为您打卡打卡打卡')
     try:
         res = dk.post()
         if str(res['e']) == '0':
