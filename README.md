@@ -1,7 +1,7 @@
 # 自动打卡教程
 
  **如果看不到本文的图片，就查看仓库内的pdf文件**
- 
+
 如果这个仓库帮到了你，请给我一颗star 哈哈。
 
 首先你需要拥有一个github，直接在左上角注册就行了。
@@ -39,6 +39,10 @@ Name必须为ACCOUNT，Value填入自己的浙大通行证账号。然后仿照�
 效果和下面的差不多：
 
 ![image-20210504142239194](https://tva1.sinaimg.cn/large/008i3skNly1gq6diybkrfj31l10u0wjv.jpg)
+
+开启github action：
+
+![image-20210504153817542](https://tva1.sinaimg.cn/large/008i3skNly1gq6fpn2kv3j31h10nmwhl.jpg)
 
 ### Step3. 如何触发打卡？
 
