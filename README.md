@@ -30,7 +30,7 @@ Fork的含义是将本仓库拷贝一份，放到你自己的github账号下，�
 
 ![image-20210504141905641](https://tva1.sinaimg.cn/large/008i3skNly1gq6df8l52dj31l90u045g.jpg)
 
-点击右上角的New repository，添加一个Secret
+点击右上角的New repository Secret，添加一个Secret
 
 ![image-20210505205649679](https://pic.raynor.top/images/2021/05/05/image-202105052056496792bdb942ebcef6a0a.png)
 
