@@ -14,7 +14,7 @@
 
 Fork的含义是将本仓库拷贝一份，放到你自己的github账号下，所以只有在第一次观看本教程的时候才需要fork。
 
-然后我们可以看到，左上角这里的Di-Zhipeng已经变成了你自己账号的名字，下面标注着forked from Di-Zhipeng/ZJU-Clock-In.
+然后我们可以看到，左上角这里的账户名已经变成了你自己账号的名字。
 
 ![image-20210504141632691](https://tva1.sinaimg.cn/large/008i3skNly1gq6dcl2073j31h90o8jv2.jpg)
 
