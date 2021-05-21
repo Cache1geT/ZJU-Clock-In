@@ -156,7 +156,7 @@ def main(username, password):
     print('正在获取个人信息...')
     try:
         dk.get_info()
-        print('%s %s同学, 你好~' % (dk.info['number'], dk.info['name']))
+        print('已成功获取个人信息')
     except Exception as err:
         print('获取信息失败，请手动打卡，更多信息: ' + str(err))
         raise Exception
