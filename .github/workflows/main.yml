@@ -17,9 +17,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Install python3
-        run: |
-          sudo -E apt-get -yqq update
-          sudo -E apt-get -yqq install python3
+        uses: actions/setup-python@v3.1.0
+        with:
+          python-version: 3.9
       - name: Install packages
         run: |
           pip3 install requests
