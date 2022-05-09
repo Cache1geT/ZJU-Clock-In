@@ -117,9 +117,7 @@ class ClockIn(object):
         new_info['jcqzrq'] = ""
         new_info['gwszdd'] = ""
         new_info['szgjcs'] = ""
-        print("getting captcha")
         new_info['verifyCode'] = self.get_captcha()
-        print("captcha got")
 
         # 2021.08.05 Fix 2
         magics = re.findall(r'"([0-9a-f]{32})":\s*"([^\"]+)"', html)
@@ -174,7 +172,7 @@ def main(username, password):
         print(str(err))
         raise Exception
 
-    print('debug: 正在获取个人信息...')
+    print('正在获取个人信息...')
     try:
         dk.get_info()
         print('已成功获取个人信息')
