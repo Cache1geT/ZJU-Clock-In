@@ -174,7 +174,7 @@ def main(username, password):
         print(str(err))
         raise Exception
 
-    print('正在获取个人信息...')
+    print('debug: 正在获取个人信息...')
     try:
         dk.get_info()
         print('已成功获取个人信息')
