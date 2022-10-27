@@ -161,15 +161,23 @@ def main(username, password, times):
     """
 
     print("🤔考虑下打不打卡")
-    rnd = random.randint(1, int(times))
+
     abort = True
-    now = int(time.time())
-    if rnd == int(times) or (now/3600 % 24 + 8) > 18:
+    rnd = random.randint(1, times)
+
+    if rnd == times: # 在每天的<times>个时间点以<1/times>的概率执行打卡
         abort = False
+        print("😬yesyes!")
+
+    now = int(time.time())
+    if (now/3600 % 24 + 8) > 18: # 在18:00之后补打一次
+        abort = False
+        print("😅补打一个")
 
     if abort:
         print("😝下次一定")
         sys.exit(0)
+    
 
     print("\n[Time] %s" %
           datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
@@ -219,6 +227,6 @@ if __name__ == "__main__":
     password = sys.argv[2]
     times = sys.argv[3]
     try:
-        main(username, password, times)
+        main(username, password, int(times))
     except Exception:
         exit(1)
