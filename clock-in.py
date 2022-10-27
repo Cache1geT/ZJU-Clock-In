@@ -6,6 +6,7 @@ import requests
 import json
 import re
 import datetime
+import random
 import time
 import sys
 import ddddocr
@@ -152,12 +153,24 @@ class DecodeError(Exception):
     pass
 
 
-def main(username, password):
+def main(username, password, times):
     """Hit card process
     Arguments:
         username: (str) 浙大统一认证平台用户名（一般为学号）
         password: (str) 浙大统一认证平台密码
     """
+
+    print("🤔考虑下打不打卡")
+    rnd = random.randint(1, int(times))
+    abort = True
+    now = int(time.time())
+    if rnd == int(times) or (now/3600 % 24 + 8) > 18:
+        abort = False
+
+    if abort:
+        print("😝下次一定")
+        sys.exit(0)
+
     print("\n[Time] %s" %
           datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     print("🚌 打卡任务启动")
@@ -204,7 +217,8 @@ def main(username, password):
 if __name__ == "__main__":
     username = sys.argv[1]
     password = sys.argv[2]
+    times = sys.argv[3]
     try:
-        main(username, password)
+        main(username, password, times)
     except Exception:
         exit(1)
