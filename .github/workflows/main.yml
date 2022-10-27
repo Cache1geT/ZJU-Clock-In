@@ -7,7 +7,7 @@ on:
   watch:
     types: started
   schedule:
-    - cron: 12 1/12 * * *
+    - cron: 3 1,4,7,11 * * *
 
 jobs:
   ClockIn:
@@ -29,4 +29,4 @@ jobs:
           ACCOUNT: ${{ secrets.ACCOUNT }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: |
-          python3 clock-in.py ${ACCOUNT} ${PASSWORD}
+          python3 clock-in.py ${ACCOUNT} ${PASSWORD} 3
