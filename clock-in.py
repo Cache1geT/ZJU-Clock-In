@@ -105,11 +105,6 @@ class ClockIn(object):
         new_info['number'] = number
         new_info["date"] = self.get_date()
         new_info["created"] = round(time.time())
-        new_info["address"] = "浙江省杭州市萧山区"
-        new_info["area"] = "浙江省 杭州市 萧山区"
-        new_info["province"] = new_info["area"].split(' ')[0]
-        new_info["city"] = new_info["area"].split(' ')[1]
-        # form change
         new_info['jrdqtlqk[]'] = 0
         new_info['jrdqjcqk[]'] = 0
         new_info['sfsqhzjkk'] = 1   # 是否申领杭州健康码
