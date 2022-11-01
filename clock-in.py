@@ -121,7 +121,7 @@ class ClockIn(object):
             new_info[item[0]] = item[1]
 
         self.info = new_info
-        return new_info
+        return json.loads(old_info["geo_api_info"])["formattedAddress"]
 
     def _rsa_encrypt(self, password_str, e_str, M_str):
         password_bytes = bytes(password_str, 'ascii')
@@ -155,27 +155,31 @@ def main(username, password, times):
         password: (str) 浙大统一认证平台密码
     """
 
-    print("🤔考虑下打不打卡")
+    #Beijing Time
+    SHA_TZ = datetime.timezone(datetime.timedelta(hours=8),name='Asia/Shanghai',)
+    beijing_now = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc).astimezone(SHA_TZ)
+    print("\n[北京时间] %s" % beijing_now.strftime('%Y-%m-%d %H:%M:%S'))
 
     abort = True
-    rnd = random.randint(1, times)
-
-    if rnd == times: # 在每天的<times>个时间点以<1/times>的概率执行打卡
-        abort = False
-        print("😬yesyes!")
 
     now = int(time.time())
-    if (now/3600 % 24 + 8) > 18: # 在18:00之后补打一次
+    if ((now/3600 + 8) % 24) > 18: # 在北京时间18:00之后补打一次
         abort = False
-        print("😅补打一个")
+        print("🚒补打一个")
 
     if abort:
-        print("😝下次一定")
+        print("🎲考虑下打不打卡")
+        rnd = random.randint(1, times)
+
+        if rnd == times: # 在每天的<times>个时间点以<1/times>的概率执行打卡
+            abort = False
+            print("✅yesyes!")
+
+    if abort:
+        print("✅下次一定")
         sys.exit(0)
     
 
-    print("\n[Time] %s" %
-          datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     print("🚌 打卡任务启动")
 
     dk = ClockIn(username, password)
@@ -183,26 +187,22 @@ def main(username, password, times):
     print("登录到浙大统一身份认证平台...")
     try:
         dk.login()
-        print("已登录到浙大统一身份认证平台")
+        print("✅已登录到浙大统一身份认证平台")
     except Exception as err:
-        print(str(err))
-        raise Exception
+        raise Exception("❌",str(err))
 
     print('正在获取个人信息...')
     try:
-        dk.get_info()
-        print('已成功获取个人信息')
+        location = dk.get_info()
+        print("✅", location)
     except Exception as err:
-        print('获取信息失败，请手动打卡，更多信息: ' + str(err))
+        print('❌获取信息失败，请手动打卡，更多信息: ' + str(err))
         raise Exception
 
-    print('正在为您打卡')
+    print('正在为您打卡...')
     try:
         res = dk.post()
-        if str(res['e']) == '0':
-            print('已为您打卡成功！')
-        else:
-            print(res['m'])
+        if str(res['e']) == '1':
             if res['m'].find("已经") != -1: # 已经填报过了 不报错
                 pass
             elif res['m'].find("验证码错误") != -1: # 验证码错误
@@ -211,9 +211,10 @@ def main(username, password, times):
                 main(username, password)
                 pass
             else:
-                raise Exception
+                raise Exception("❌数据提交失败: "+res['m'])
+        print("✅",res['m'])
     except Exception:
-        print('数据提交失败')
+        print('❌数据提交失败')
         raise Exception
 
 
@@ -223,5 +224,5 @@ if __name__ == "__main__":
     times = sys.argv[3]
     try:
         main(username, password, int(times))
-    except Exception:
-        exit(1)
+    except Exception as err:
+        print(err)
